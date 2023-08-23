@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Selection</title>
+        <style>
+            
+         #add-to-cart-button {
+            margin-top: 10px;
+            background-color: turquoise;
+            color: white;
+            padding: 15px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff; /* Changed background color */
+            color: #000; /* Changed text color */
+          }
+      
+        .content {
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            opacity: 1;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            background-image: url('https://images.pexels.com/photos/3998410/pexels-photo-3998410.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+        background-size: cover; /* Adjust as needed */
+        background-position: center; /* Adjust as needed */
+      }
+        #add-to-cart-button:hover {
+            background-color: #4a90e2;
+        }
+        .add-to-cart-button {
+            margin-top: 20px;
+            background-color: turquoise;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: #4a90e2;
+        }
+        .cart-rectangle {
+            position: fixed;
+            top: 30px; /* Adjusted top position */
+            right: 20px;
+            background-color: turquoise;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        .cart-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px; /* Adjusted margin */
+        }
+
+        .cart-total {
+            color: white; /* White text color */
+            font-weight: bold;
+        }
+
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: none;
+            padding: 10px;
+            min-width: 200px;
+            z-index: 9999;
+        }
+
+        .cart-rectangle:hover .cart-dropdown {
+            display: block;
+        }
+
+        .checkout-button {
+            margin-top: 10px;
+            background-color: turquoise; /* Turquoise button color */
+            color: white; /* White button text color */
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underlining */
+
+        }
+
+        .checkout-button:hover {
+            background-color: #4a90e2; /* Slightly darker color on hover */
+        }
+
+        .order-summary {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .order-summary li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .order-summary .item-name {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .product-container {
+            display: inline-block;
+            text-align: center;
+            padding: 10px;
+            margin: 10px;
+            width: 300px; /* Adjusted width for larger container */
+            height: 400px; /* Adjusted height for larger container */
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure the image fills the entire container */
+            transition: transform 0.3s;
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: -5%; /* Adjusted top position to cover a bit more */
+            left: -2.5%; /* Adjusted left position to cover a bit more */
+            width: 105%; /* Adjusted width to cover a bit more */
+            height: 110%; /* Adjusted height to cover a bit more */
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+            cursor: pointer;
+            padding: 10px;
+            box-sizing: border-box;
+            color: white; /* Added white color for text */
+        }
+
+        .product-container:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-container:hover .product-overlay {
+            opacity: 0.8;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-quantity {
+            margin-top: 5px;
+        }
+
+        .product-quantity label {
+            margin-right: 5px;
+        }
+
+        .product-quantity input {
+            width: 40px;
+            padding: 3px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .header {
+            background-color: #000;
+            color: white;
+            padding: 0px;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 50px;
+            margin-bottom: 0px;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: left;
+            gap: 10px;
+        }
+
+        .header-button {
+            background-color: transparent;
+            color: white;
+            padding: 10px 20px;
+            border: 2px solid turquoise;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-button:hover {
+            background-color: turquoise;
+            color: white;
+        }
+        header {
+            background-color: #000; /* Changed background color */
+            color: #fff; /* White text */
+            padding: 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+          }
+          
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">Grus och Armering SFA</div>
+        <div class="header-buttons">
+            <a href="index.html" class="header-button">Hem</a>
+            <a href="kontakt.html" class="header-button">Kontakt</a>
+            <a href="information.html" class="header-button">Information</a>
+        </div>
+    </header>
+
+    <div class="cart-rectangle">
+        <div class="cart-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Cart" style="width: 50px; height: 50px;">
+        </div>
+        <div class="cart-total" id="cart-info">Cart: 0 items, SEK 0</div>
+        <div class="cart-dropdown">
+            <h3>Your Cart</h3>
+            <ul class="order-summary" id="cart-items"></ul> <!-- Changed to an unordered list -->
+            <div id="cart-total"></div>
+            <a href="#" class="checkout-button" id="checkout-button">Checkout</a>
+        </div>
+    </div>
+
+   
+
+    <h1>Grus och Sand</h1>
+
+    <div class="product-container">
+        <div class="product-image-container">
+            <img class="product-image" src="https://images.pexels.com/photos/414765/pexels-photo-414765.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Grus">
+            <div class="product-overlay">
+                <div class="product-title">Grus</div>
+                <div class="product-price">SEK 500</div>
+                <div class="product-quantity">
+                    <label for="product1">Quantity:</label>
+                    <input type="number" id="product1" name="product1" min="0" value="0">
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="product-container">        
+    <div class="product-image-container">
+            <img class="product-image" src="https://images.pexels.com/photos/414765/pexels-photo-414765.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Grus">
+            <div class="product-overlay">
+                <div class="product-title">Sand</div>
+                <div class="product-price">SEK 1000</div>
+                <div class="product-quantity">
+                    <label for="product3">Quantity:</label>
+                    <input type="number" id="product3" name="product3" min="0" value="0">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <label for="delivery-option">Delivery Option:</label>
+        <select id="delivery-option" name="delivery-option">
+            <option value="inside">Inne i Stockholm (SEK 2000)</option>
+            <option value="outside">Utanför Stockholm (SEK 5000)</option>
+        </select>
+    </div>
+
+    <button id="add-to-cart-button">Add to Cart</button>
+
+    <!-- Include your JavaScript file here -->
+    <script src="script.js"></script>
+</body>
+</html>
